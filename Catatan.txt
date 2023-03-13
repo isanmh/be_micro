@@ -1,0 +1,106 @@
+cara install nodejs express :
+- install nodejs, xampp/mysql, visual studio code
+
+cara menjalankan server :
+- buka terminal 
+- ketik : 
+  node app.js 
+atau 
+  nodemon app.js 
+atau
+  npm run dev
+- buka browser dan ketik localhost:5000
+
+cara membuat project nodejs :
+npm init
+npm i express
+yarn add express
+
+cara setting server menggunakan nodemon :
+- install secara global :
+npm i -g nodemon
+yarn add -g nodemon
+
+setting nodemon npm run dev:
+- buat file package.json
+- tambahkan script :
+"scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+},
+
+setting morgan untuk logging request :
+- install morgan :
+npm i morgan
+
+template engine ejs :
+npm i ejs
+npm i express-ejs-layouts
+
+setting mysql di node js :
+npm i mysql 
+
+orm :
+sequileze
+
+cara setting env di node js ;
+- install dotenv :
+npm i dotenv
+- setiing di app.js ;
+require('dotenv').config()
+
+model -> database :
+
+depedencies untuk node js :
+npm i express-validator method-override body-parser cookie-parser express-session connect-flash
+npm i express-validator method-override express-session connect-flash
+
+
+cara menggunakan api di node js :
+depedencies api :
+npm i cors body-parser dotenv helmet compression 
+
+dep untuk ORM :
+npm i sequelize sequelize-cli mysql2
+
+==========================
+cara express generator :
+npm i -g express-generator
+express -h
+express --view=ejs webapi
+cd webapi
+npm i
+
+server :
+set DEBUG=myapp:* & npm start
+
+depedencies api :
+npm i cors body-parser dotenv helmet compression 
+
+dep untuk ORM :
+npm i sequelize sequelize-cli mysql2
+
+setting database :
+buat file .sequelizerc
+"scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "sequelize": "sequelize",
+    "sequelize-cli": "sequelize-cli"
+  },
+
+npx run sequelize-cli init
+npm run sequelize-cli init -> local
+
+cara mengunakan sequelize-cli:
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+
+npm run sequelize-cli -- model:generate --name Contact --attributes name:string,email:string,phone:string --underscored
+
+migration :
+npm run sequelize-cli -- db:migrate
+npm run sequelize-cli -- db:migrate:undo
+npm run sequelize-cli -- db:migrate:undo:all
+
+cara instaall sequelize posgre :
+npm i pg pg-hstore

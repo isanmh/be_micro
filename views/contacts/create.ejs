@@ -1,0 +1,65 @@
+<h1>Form Tambah Data</h1>
+<!-- Validator -->
+<% if (typeof errors != 'undefined') { %>
+<!-- <div class="alert alert-danger" rol="alert"> -->
+<% errors.forEach(error => { %>
+<!-- <li><%= error.msg %></li> -->
+<% }) %>
+<!-- </div> -->
+<% } %>
+
+<div class="col-md-6">
+  <form action="/contacts/store" method="POST">
+    <div class="form-group">
+      <label for="name">Nama</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        placeholder="Masukkan nama"
+        value="<%= typeof old != 'undefined' ? old.name : '' %>"
+      />
+      <!-- jika ada error -->
+      <small class="form-text text-danger">
+        <% if (typeof errors != 'undefined') { %> <% errors.forEach(error => {
+        %> <% if (error.param == 'name') { %> <%= error.msg %> <% } %> <% }) %>
+        <% } %>
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="Masukkan email"
+        value="<%= typeof old != 'undefined' ? old.email : '' %>"
+      />
+      <!-- jika ada error -->
+      <small class="form-text text-danger">
+        <% if (typeof errors != 'undefined') { %> <% errors.forEach(error => {
+        %> <% if (error.param == 'email') { %> <%= error.msg %> <% } %> <% }) %>
+        <% } %>
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phone"
+        name="phone"
+        placeholder="Masukkan phone"
+        value="<%= typeof old != 'undefined' ? old.phone : '' %>"
+      />
+      <small class="form-text text-danger">
+        <% if (typeof errors != 'undefined') { %> <% errors.forEach(error => {
+        %> <% if (error.param == 'phone') { %> <%= error.msg %> <% } %> <% }) %>
+        <% } %>
+      </small>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  </form>
+</div>
