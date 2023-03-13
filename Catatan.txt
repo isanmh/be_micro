@@ -1,5 +1,10 @@
 cara install nodejs express :
 - install nodejs, xampp/mysql, visual studio code
+- npm i 
+- setting .env
+- create database webapi
+- mysql run
+npm run sequelize-cli -- db:migrate
 
 cara menjalankan server :
 - buka terminal 
