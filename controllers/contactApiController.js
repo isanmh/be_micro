@@ -70,8 +70,8 @@ const contactApiController = {
         if (contact.image !== null) {
           const filepath = `./public/images/${contact.image}`;
           fs.unlinkSync(filepath);
-          var image = req.file.filename;
         }
+        var image = req.file.filename;
       } else {
         var image = contact.image;
       }
