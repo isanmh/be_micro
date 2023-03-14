@@ -9,7 +9,7 @@
 <% } %>
 
 <div class="col-md-6">
-  <form action="/contacts/store" method="POST">
+  <form action="/contacts/store" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="name">Nama</label>
       <input
@@ -59,6 +59,16 @@
         %> <% if (error.param == 'phone') { %> <%= error.msg %> <% } %> <% }) %>
         <% } %>
       </small>
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input
+        type="file"
+        class="form-control"
+        id="image"
+        name="image"
+        placeholder="Masukkan image"
+      />
     </div>
     <button type="submit" class="btn btn-primary mt-3">Submit</button>
   </form>

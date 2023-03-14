@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const { Op } = require("sequelize");
 const db = require("../database/models");
 const Contact = require("../models/contactModel");
+const fs = require("fs");
 
 module.exports = {
   // index: (req, res) => {
@@ -104,12 +105,20 @@ module.exports = {
     });
   },
   store: (req, res) => {
+    // console.log(req.file);
     const errors = validationResult(req);
     const { name, email, phone } = req.body;
+    const img = req.file;
+    if (req.file) {
+      var image = req.file.filename;
+    } else {
+      var image = null;
+    }
     const data = {
       name,
       email,
       phone,
+      image,
     };
     // logika jika ada error
     if (!errors.isEmpty()) {
@@ -123,6 +132,7 @@ module.exports = {
         name: name,
         email: email,
         phone: phone,
+        image: image,
       });
       contact
         .then((result) => {
@@ -146,31 +156,54 @@ module.exports = {
   },
   update: (req, res) => {
     const { id, name, email, phone } = req.body;
-    db.Contact.update(
-      {
-        name: name,
-        email: email,
-        phone: phone,
-      },
-      {
-        where: {
-          id: id,
-        },
+    db.Contact.findByPk(id).then((contact) => {
+      // jika ada file
+      if (req.file) {
+        if (contact.image !== null) {
+          const filepath = `./public/images/${contact.image}`;
+          fs.unlinkSync(filepath);
+        }
+        var image = req.file.filename;
+      } else {
+        var image = contact.image;
       }
-    ).then((result) => {
-      req.flash("success", "Data berhasil diubah");
-      res.redirect("/contacts");
+      db.Contact.update(
+        {
+          name: name,
+          email: email,
+          phone: phone,
+          image: image,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      ).then((result) => {
+        req.flash("success", "Data berhasil diubah");
+        res.redirect("/contacts");
+      });
     });
   },
   destroy: (req, res) => {
     const id = req.params.id;
-    db.Contact.destroy({
-      where: {
-        id: id,
-      },
-    }).then((result) => {
-      req.flash("success", "Data berhasil dihapus");
-      res.redirect("/contacts");
+    db.Contact.findByPk(id).then((contact) => {
+      if (contact.image !== null) {
+        const filepath = `./public/images/${contact.image}`;
+        fs.unlinkSync(filepath);
+        // fs.unlink(filepath, (err) => {
+        //   if (err) throw err;
+        // });
+      }
+      db.Contact.destroy({
+        where: {
+          id: id,
+        },
+        // jika ada file
+      }).then((contact) => {
+        req.flash("success", "Data berhasil dihapus");
+        res.redirect("/contacts");
+      });
     });
   },
   search: (req, res) => {

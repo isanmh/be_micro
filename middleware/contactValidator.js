@@ -18,4 +18,8 @@ module.exports = [
     .withMessage("Phone harus diisi, ")
     .isMobilePhone("id-ID")
     .withMessage("Format phone tidak valid"),
+  // check("image")
+  //   .optional({ checkFalsy: true, nullable: true })
+  //   .isMimeType("image/jpeg", "image/png", "image/gif", "image/jpg")
+  //   .withMessage("File harus berupa gambar"),
 ];

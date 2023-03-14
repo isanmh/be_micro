@@ -19,7 +19,7 @@ router.post(
 //   contactController.store
 // );
 router.get("/edit/:id", contactController.edit);
-router.put("/update", contactController.update);
+router.put("/update", upload.single("image"), contactController.update);
 router.delete("/delete/:id", contactController.destroy);
 // search
 router.get("/search", contactController.search);

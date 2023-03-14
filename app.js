@@ -6,6 +6,7 @@ const bodyParser = require("body-parser"); // parsing request body form
 const session = require("express-session"); // session
 const flash = require("connect-flash"); // flash message
 const cookieParser = require("cookie-parser"); // parsing cookie
+const path = require("path");
 // kebutuhan api
 const cors = require("cors");
 const helmet = require("helmet");
@@ -57,8 +58,7 @@ app.use(cookieParser("secret"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 // serving static file
-// app.use(express.static("public"));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 
 // deklarasi router
 const homeRouter = require("./routers/home");
@@ -83,12 +83,12 @@ app.use("/contacts", contactRouter);
 app.use("/api/contacts", contactApiRouter);
 
 // Error handling
-app.use((err, req, res, next) => {
-  res.json({
-    message: err.message,
-    error: err,
-  });
-});
+// app.use((err, req, res, next) => {
+//   res.json({
+//     message: err.message,
+//     error: err,
+//   });
+// });
 
 // handle 404
 app.use((req, res) => {

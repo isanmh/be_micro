@@ -1,6 +1,10 @@
 <h1>Form Ubah Data</h1>
 <div class="col-md-6">
-  <form action="/contacts/update?_method=PUT" method="POST">
+  <form
+    action="/contacts/update?_method=PUT"
+    method="POST"
+    enctype="multipart/form-data"
+  >
     <div class="form-group">
       <label for="name">Nama</label>
       <input type="hidden" name="id" value="<%= data.id %>" />
@@ -33,6 +37,24 @@
         name="phone"
         placeholder="Masukkan phone"
         value="<%= data.phone %>"
+      />
+    </div>
+    <!-- images -->
+    <div class="form-group">
+      <label for="image">Image</label>
+      <img
+        src="/images/<%= data.image ?  data.image : '' %>"
+        alt=""
+        width="100"
+      />
+      <br />
+      <input
+        type="file"
+        class="form-control"
+        id="image"
+        name="image"
+        placeholder="Masukkan image"
+        value="<%= data.image %>"
       />
     </div>
     <button type="submit" class="btn btn-primary mt-3">Update</button>

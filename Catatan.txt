@@ -2,9 +2,13 @@ cara install nodejs express :
 - install nodejs, xampp/mysql, visual studio code
 - npm i 
 - setting .env
-- create database webapi
-- mysql run
-npm run sequelize-cli -- db:migrate
+- aktifkan mysql
+- create database web_api atau dengan di file .env
+  buat database baru web_api
+- jika terjadi error SQL di ubuntu, buka mysql kemudian ubah nama table Contacts menjadi
+  contacts (lowercase) pada database web_api
+- lakukan migrate database :
+  npm run sequelize-cli -- db:migrate
 
 cara menjalankan server :
 - buka terminal 
@@ -100,7 +104,7 @@ npm run sequelize-cli init -> local
 cara mengunakan sequelize-cli:
 npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
 
-npm run sequelize-cli -- model:generate --name Contact --attributes name:string,email:string,phone:string --underscored
+npm run sequelize-cli -- model:generate --name Contact --attributes name:string,email:string,phone:string,image:string --underscored
 
 migration :
 npm run sequelize-cli -- db:migrate

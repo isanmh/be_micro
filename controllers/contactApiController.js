@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const db = require("../database/models");
+const fs = require("fs");
 
 const contactApiController = {
   test: (req, res) => {
@@ -18,26 +19,29 @@ const contactApiController = {
   },
   //get all data
   async store(req, res) {
-    return res.status(200).send({
-      status: "success",
-      // cek image
-      image: req.body.path,
-    });
-    // const errors = validationResult(req);
-    // const { name, email, phone } = req.body;
-    // const contact = await db.Contact.create({
-    //   name: name,
-    //   email: email,
-    //   phone: phone,
-    // });
-    // // logika jika ada errors
-    // if (!errors.isEmpty()) {
-    //   return res.status(422).send({ status: "error", errors: errors.array() });
-    // }
-    // return res.status(201).send({
-    //   status: "success",
-    //   data: contact,
-    // });
+    // console.log(req.file);
+    const errors = validationResult(req);
+    const { name, email, phone } = req.body;
+    if (req.file) {
+      var image = req.file.filename;
+    } else {
+      var image = null;
+    }
+    // logika jika ada errors
+    if (!errors.isEmpty()) {
+      return res.status(422).send({ status: "error", errors: errors.array() });
+    } else {
+      const contact = await db.Contact.create({
+        name: name,
+        email: email,
+        phone: phone,
+        image: image,
+      });
+      return res.status(200).send({
+        status: "data berhasil ditambahkan",
+        data: contact,
+      });
+    }
   },
   //get by id
   async show(req, res) {
@@ -57,21 +61,30 @@ const contactApiController = {
     const errors = validationResult(req);
     const id = req.params.id;
     const { name, email, phone } = req.body;
-    const contact = await db.Contact.findOne({ where: { id: id } });
     // logika jika ada errors
     if (!errors.isEmpty()) {
       return res.status(422).send({ status: "error", errors: errors.array() });
-    }
-    if (contact) {
-      contact.name = name;
-      contact.email = email;
-      contact.phone = phone;
-      await contact.save();
-      return res.status(200).send({
-        status: "data berhasil diupdate",
-      });
     } else {
-      return res.status(404).send({ status: "data tidak ditemukan" });
+      const contact = await db.Contact.findOne({ where: { id: id } });
+      if (req.file) {
+        if (contact.image !== null) {
+          const filepath = `./public/images/${contact.image}`;
+          fs.unlinkSync(filepath);
+          var image = req.file.filename;
+        }
+      } else {
+        var image = contact.image;
+      }
+      if (contact) {
+        contact.name = name;
+        contact.email = email;
+        contact.phone = phone;
+        contact.image = image;
+        await contact.save();
+        return res.status(201).send({ status: "data berhasil diupdate" });
+      } else {
+        return res.status(404).send({ status: "data tidak ditemukan" });
+      }
     }
   },
   //   delete
@@ -79,6 +92,10 @@ const contactApiController = {
     const id = req.params.id;
     const contact = await db.Contact.findOne({ where: { id: id } });
     if (contact) {
+      if (contact.image !== null) {
+        const filepath = `./public/images/${contact.image}`;
+        fs.unlinkSync(filepath);
+      }
       await contact.destroy();
       return res.status(200).send({ status: "data berhasil dihapus" });
     } else {

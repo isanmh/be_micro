@@ -6,10 +6,16 @@ const upload = require("../middleware/uploadMiddleware");
 const router = express.Router();
 
 router.get("/", contactApiContoller.getAll);
-router.post("/", contactValidator, contactApiContoller.store);
+router.post(
+  "/",
+  upload.single("image"),
+  contactValidator,
+  contactApiContoller.store
+);
 router.get("/:id", contactApiContoller.show);
 router.put(
   "/:id",
+  upload.single("image"),
   [
     body("name")
       .isString()
@@ -23,7 +29,7 @@ router.put(
 router.delete("/:id", contactApiContoller.delete);
 // search
 router.get("/search/:keyword", contactApiContoller.search);
-// upload
+// upload API Test
 router.post("/upload", upload.single("image"), (req, res) => {
   try {
     res.json({
