@@ -114,5 +114,28 @@ npm run sequelize-cli -- db:migrate:undo:all
 cara instaall sequelize posgre :
 npm i pg pg-hstore
 
+setting config/database.js :
+development: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
+    // untuk postgresql
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  },
+
+setting .env :
+DB_HOST=localhost
+DB_USERNAME=postgres
+DB_PASSWORD=
+DB_NAME=web_api
+DB_DIALECT=postgres
+
 cara install multer :
 npm i multer
