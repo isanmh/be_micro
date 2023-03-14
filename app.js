@@ -55,6 +55,7 @@ app.use(flash());
 app.use(cookieParser("secret"));
 
 // untuk pemanggilan template engine
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 // serving static file
