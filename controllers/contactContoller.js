@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+const { Op } = require("sequelize");
 const db = require("../database/models");
 const Contact = require("../models/contactModel");
 
@@ -176,12 +177,21 @@ module.exports = {
     const keyword = req.query.keyword;
     db.Contact.findAll({
       where: {
-        name: {
-          [db.Sequelize.Op.like]: "%" + keyword + "%",
-        },
-        phone: {
-          [db.Sequelize.Op.like]: "%" + keyword + "%",
-        },
+        // name: {
+        //   [Op.like]: "%" + keyword + "%",
+        // },
+        [Op.or]: [
+          {
+            name: {
+              [Op.like]: `%${keyword}%`,
+            },
+          },
+          {
+            phone: {
+              [Op.like]: `%${keyword}%`,
+            },
+          },
+        ],
       },
     }).then((contacts) => {
       res.render("contacts/index", {

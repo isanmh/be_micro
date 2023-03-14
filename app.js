@@ -26,11 +26,11 @@ app.use(morgan("dev"));
 // kebutuhan api
 app.use(cors());
 // app.use(helmet());
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-  })
-);
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: false,
+//   })
+// );
 app.use(compression());
 
 // pemanggilan db
@@ -57,7 +57,8 @@ app.use(cookieParser("secret"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 // serving static file
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 // deklarasi router
 const homeRouter = require("./routers/home");
@@ -80,6 +81,14 @@ app.use("/basic", basicRouter);
 app.use("/contacts", contactRouter);
 // api router
 app.use("/api/contacts", contactApiRouter);
+
+// Error handling
+app.use((err, req, res, next) => {
+  res.json({
+    message: err.message,
+    error: err,
+  });
+});
 
 // handle 404
 app.use((req, res) => {

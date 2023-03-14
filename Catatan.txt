@@ -109,3 +109,6 @@ npm run sequelize-cli -- db:migrate:undo:all
 
 cara instaall sequelize posgre :
 npm i pg pg-hstore
+
+cara install multer :
+npm i multer

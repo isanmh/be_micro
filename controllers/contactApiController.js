@@ -18,21 +18,26 @@ const contactApiController = {
   },
   //get all data
   async store(req, res) {
-    const errors = validationResult(req);
-    const { name, email, phone } = req.body;
-    const contact = await db.Contact.create({
-      name: name,
-      email: email,
-      phone: phone,
-    });
-    // logika jika ada errors
-    if (!errors.isEmpty()) {
-      return res.status(422).send({ status: "error", errors: errors.array() });
-    }
-    return res.status(201).send({
+    return res.status(200).send({
       status: "success",
-      data: contact,
+      // cek image
+      image: req.body.path,
     });
+    // const errors = validationResult(req);
+    // const { name, email, phone } = req.body;
+    // const contact = await db.Contact.create({
+    //   name: name,
+    //   email: email,
+    //   phone: phone,
+    // });
+    // // logika jika ada errors
+    // if (!errors.isEmpty()) {
+    //   return res.status(422).send({ status: "error", errors: errors.array() });
+    // }
+    // return res.status(201).send({
+    //   status: "success",
+    //   data: contact,
+    // });
   },
   //get by id
   async show(req, res) {

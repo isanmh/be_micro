@@ -32,44 +32,44 @@
       Cari
     </button>
   </div>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nama</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Aksi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% data.forEach((item, index) => { %>
-      <tr>
-        <th scope="row"><%= index+1 %></th>
-        <td><%= item.name %></td>
-        <td><%= item.email %></td>
-        <td><%= item.phone %></td>
-        <td>
-          <div class="d-flex justify-content-center">
-            <a href="/contacts/edit/<%= item.id %>" class="btn btn-warning mx-2"
-              >Edit</a
-            >
-            <form
-              action="/contacts/delete/<%= item.id %>?_method=DELETE"
-              method="POST"
-            >
-              <button
-                class="btn btn-primary"
-                onclick="return confirm('Yakin ingin menghapus?')"
-              >
-                Delete
-              </button>
-            </form>
-          </div>
-        </td>
-      </tr>
-      <% }) %>
-    </tbody>
-  </table>
 </form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nama</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.forEach((item, index) => { %>
+    <tr>
+      <th scope="row"><%= index+1 %></th>
+      <td><%= item.name %></td>
+      <td><%= item.email %></td>
+      <td><%= item.phone %></td>
+      <td>
+        <div class="d-flex justify-content-center">
+          <a href="/contacts/edit/<%= item.id %>" class="btn btn-warning mx-2"
+            >Edit</a
+          >
+          <form
+            action="/contacts/delete/<%= item.id %>?_method=DELETE"
+            method="POST"
+          >
+            <button
+              class="btn btn-primary"
+              onclick="return confirm('Yakin ingin menghapus?')"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
