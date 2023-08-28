@@ -5,16 +5,16 @@ const Contact = require("../models/contactModel");
 const fs = require("fs");
 
 module.exports = {
-  index: (req, res) => {
-    Contact.fetchData(req.db, (err, result) => {
-      if (err) throw err;
-      res.render("contacts/index", {
-        judul: "Contact",
-        data: result,
-        layout: "layouts/main-layout",
-      });
-    });
-  },
+  // index: (req, res) => {
+  //   Contact.fetchData(req.db, (err, result) => {
+  //     if (err) throw err;
+  //     res.render("contacts/index", {
+  //       judul: "Contact",
+  //       data: result,
+  //       layout: "layouts/main-layout",
+  //     });
+  //   });
+  // },
   create: (req, res) => {
     res.render("contacts/create", {
       judul: "Create Contact",
@@ -47,17 +47,17 @@ module.exports = {
       });
     }
   },
-  edit: (req, res) => {
-    const id = req.params.id;
-    Contact.getById(req.db, id, (err, result) => {
-      if (err) throw err;
-      res.render("contacts/edit", {
-        judul: "Edit Contact",
-        data: result[0],
-        layout: "layouts/main-layout",
-      });
-    });
-  },
+  // edit: (req, res) => {
+  //   const id = req.params.id;
+  //   Contact.getById(req.db, id, (err, result) => {
+  //     if (err) throw err;
+  //     res.render("contacts/edit", {
+  //       judul: "Edit Contact",
+  //       data: result[0],
+  //       layout: "layouts/main-layout",
+  //     });
+  //   });
+  // },
   update: (req, res) => {
     const { id, name, email, phone } = req.body;
     const data = {
@@ -92,18 +92,18 @@ module.exports = {
   },
 
   // menggunakan sequelize orm
-//   index: (req, res) => {
-//     db.Contact.findAll({
-//       attribut: ["id", "name", "email", "phone"],
-//       order: [["id", "DESC"]],
-//     }).then((contacts) => {
-//       res.render("contacts/index", {
-//         judul: "Contact",
-//         data: contacts,
-//         layout: "layouts/main-layout",
-//       });
-//     });
-//   },
+  index: (req, res) => {
+    db.Contact.findAll({
+      attribut: ["id", "name", "email", "phone"],
+      order: [["id", "DESC"]],
+    }).then((contacts) => {
+      res.render("contacts/index", {
+        judul: "Contact",
+        data: contacts,
+        layout: "layouts/main-layout",
+      });
+    });
+  },
 //   store: (req, res) => {
 //     // console.log(req.file);
 //     const errors = validationResult(req);
@@ -144,16 +144,16 @@ module.exports = {
 //         });
 //     }
 //   },
-//   edit: (req, res) => {
-//     const id = req.params.id;
-//     db.Contact.findByPk(id).then((contact) => {
-//       res.render("contacts/edit", {
-//         judul: "Edit Contact",
-//         data: contact,
-//         layout: "layouts/main-layout",
-//       });
-//     });
-//   },
+  edit: (req, res) => {
+    const id = req.params.id;
+    db.Contact.findByPk(id).then((contact) => {
+      res.render("contacts/edit", {
+        judul: "Edit Contact",
+        data: contact,
+        layout: "layouts/main-layout",
+      });
+    });
+  },
 //   update: (req, res) => {
 //     const { id, name, email, phone } = req.body;
 //     db.Contact.findByPk(id).then((contact) => {
