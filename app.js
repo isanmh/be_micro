@@ -15,7 +15,7 @@ const compression = require("compression");
 const app = express();
 
 // module koneksi dari database
-const db = require("./database/conn");
+// const db = require("./database/conn");
 
 // setting env
 const dotenv = require("dotenv");
@@ -35,10 +35,10 @@ app.use(cors());
 app.use(compression());
 
 // pemanggilan db
-app.use((req, res, next) => {
-  req.db = db;
-  next();
-});
+// app.use((req, res, next) => {
+//   req.db = db;
+//   next();
+// });
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
