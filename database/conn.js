@@ -1,17 +1,19 @@
-// const mysql = require("mysql");
-// require("dotenv").config();
+const mysql = require("mysql");
+require("dotenv").config();
 
-// const connection = mysql.createConnection({
-//   host: "localhost" || process.env.DB_HOST,
-//   user: "root" || process.env.DB_USERNAME,
-//   password: "" || process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-// });
+const connection = mysql.createConnection({
 
-// // cek koneksi database
-// connection.connect((err) => {
-//   if (err) throw err;
-//   console.log("Database terkoneksi");
-// });
+  username: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+});
 
-// module.exports = connection;
+// cek koneksi database
+connection.connect((err) => {
+  if (err) throw err;
+  console.log("Database terkoneksi");
+});
+
+module.exports = connection;
